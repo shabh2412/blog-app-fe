@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import PostBlog from "../Pages/Blogs/PostBlog";
 import PrivateRoutes from "./PrivateRoutes";
 
 type Props = {};
@@ -25,6 +26,7 @@ const AllRoutes = (props: Props) => {
 					</PrivateRoutes>
 				}
 			/>
+			<Route path="new-blog" element={<PostBlog />} />
 		</Routes>
 	);
 };
