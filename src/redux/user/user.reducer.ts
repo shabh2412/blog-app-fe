@@ -51,7 +51,7 @@ const initState: UserDataStore = {
 		primaryToken: localStorage.getItem("primaryToken"),
 		refreshToken: localStorage.getItem("refreshToken"),
 	},
-	isAuth: false,
+	isAuth: localStorage.getItem("primaryToken") !== null,
 };
 const userRT: string = localStorage.getItem("refreshToken") || "";
 
@@ -138,6 +138,7 @@ export const userReducer = (
 			localStorage.clear();
 			return {
 				...initState,
+				isAuth: false,
 			};
 		}
 		case USER_LOADED: {
