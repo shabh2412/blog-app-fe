@@ -18,10 +18,12 @@ import { RootReducer } from "../../redux/store";
 import { initializeUser, logoutUser } from "../../redux/user/user.actions";
 import Login from "../LoginSignup/Login";
 import styles from "./Navbar.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 	const {
 		data: userData,
+		isAuth,
 		tokens,
 		login: { error: _err, success, loading },
 	} = useSelector((state: RootReducer) => state.user);
@@ -30,6 +32,8 @@ const Navbar = () => {
 	const handleLogout = () => {
 		dispatch(logoutUser());
 	};
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(initializeUser());
@@ -43,7 +47,14 @@ const Navbar = () => {
 			justifyContent="space-between"
 			wrap={"wrap"}
 			className={styles.navbar}>
-			<Flex alignItems="center">
+			<Flex
+				alignItems="center"
+				onClick={() => {
+					navigate("/");
+				}}
+				_hover={{
+					cursor: "pointer",
+				}}>
 				<Box>
 					<Image src="./blogAppLogo.png" maxH="30" />
 				</Box>
@@ -61,7 +72,7 @@ const Navbar = () => {
 				{/* Todo: Implement search functionality */}
 			</Box>
 			<Flex gap="1em">
-				{userData.email ? (
+				{isAuth ? (
 					<Menu>
 						<MenuButton>
 							<Flex justifyContent="center" alignItems="center">
@@ -72,9 +83,16 @@ const Navbar = () => {
 						<MenuList>
 							<MenuItem
 								onClick={() => {
-									alert("show profile on click");
+									// alert("show profile on click");
+									navigate("/profile");
 								}}>
 								Profile
+							</MenuItem>
+							<MenuItem
+								onClick={() => {
+									navigate("/myBlogs");
+								}}>
+								My Blogs
 							</MenuItem>
 							<MenuItem onClick={handleLogout}>Logout</MenuItem>
 						</MenuList>
