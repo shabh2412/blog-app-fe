@@ -32,6 +32,7 @@ type UserDataStore = {
 	};
 	signup: loadingSuccessOrError;
 	login: loadingSuccessOrError;
+	isAuth: Boolean;
 };
 
 const initState: UserDataStore = {
@@ -50,6 +51,7 @@ const initState: UserDataStore = {
 		primaryToken: localStorage.getItem("primaryToken"),
 		refreshToken: localStorage.getItem("refreshToken"),
 	},
+	isAuth: false,
 };
 const userRT: string = localStorage.getItem("refreshToken") || "";
 
@@ -121,6 +123,7 @@ export const userReducer = (
 			localStorage.setItem("tokens", JSON.stringify(payload.tokens));
 			return {
 				...state,
+				isAuth: true,
 				data: payload.data,
 				tokens: payload.tokens,
 				login: {
@@ -140,6 +143,7 @@ export const userReducer = (
 		case USER_LOADED: {
 			const newState = {
 				...state,
+				isAuth: true,
 				data: {
 					...payload,
 				},
