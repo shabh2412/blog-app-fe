@@ -13,12 +13,13 @@ import {
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { HiChevronDown } from "react-icons/hi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RootReducer } from "../../redux/store";
 import { initializeUser, logoutUser } from "../../redux/user/user.actions";
 import Login from "../LoginSignup/Login";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
+import NewBlogButton from "../Buttons/NewBlogButton";
 
 const Navbar = () => {
 	const {
@@ -41,6 +42,7 @@ const Navbar = () => {
 	return (
 		<Flex
 			position="sticky"
+			bg="white"
 			top="0"
 			alignItems="center"
 			p="3"
@@ -73,30 +75,33 @@ const Navbar = () => {
 			</Box>
 			<Flex gap="1em">
 				{isAuth ? (
-					<Menu>
-						<MenuButton>
-							<Flex justifyContent="center" alignItems="center">
-								<Text>{userData.name.split(" ")[0]}</Text>
-								<HiChevronDown />
-							</Flex>
-						</MenuButton>
-						<MenuList>
-							<MenuItem
-								onClick={() => {
-									// alert("show profile on click");
-									navigate("/profile");
-								}}>
-								Profile
-							</MenuItem>
-							<MenuItem
-								onClick={() => {
-									navigate("/myBlogs");
-								}}>
-								My Blogs
-							</MenuItem>
-							<MenuItem onClick={handleLogout}>Logout</MenuItem>
-						</MenuList>
-					</Menu>
+					<>
+						<NewBlogButton />
+						<Menu>
+							<MenuButton>
+								<Flex justifyContent="center" alignItems="center">
+									<Text>{userData.name.split(" ")[0]}</Text>
+									<HiChevronDown />
+								</Flex>
+							</MenuButton>
+							<MenuList>
+								<MenuItem
+									onClick={() => {
+										// alert("show profile on click");
+										navigate("/profile");
+									}}>
+									Profile
+								</MenuItem>
+								<MenuItem
+									onClick={() => {
+										navigate("/myBlogs");
+									}}>
+									My Blogs
+								</MenuItem>
+								<MenuItem onClick={handleLogout}>Logout</MenuItem>
+							</MenuList>
+						</Menu>
+					</>
 				) : (
 					<>
 						<Login />
