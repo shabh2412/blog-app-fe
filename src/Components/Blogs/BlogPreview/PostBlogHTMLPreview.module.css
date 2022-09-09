@@ -1,0 +1,8 @@
+.div > * {
+	font-size: revert;
+	font-weight: revert;
+	width: revert;
+	height: revert;
+	margin: revert;
+	padding: revert;
+}
