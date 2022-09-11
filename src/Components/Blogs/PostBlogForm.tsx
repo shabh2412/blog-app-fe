@@ -11,12 +11,16 @@ import {
 	HStack,
 	Input,
 	Textarea,
+	useToast,
 } from "@chakra-ui/react";
 import React, { ReactEventHandler, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { postBlog } from "../../redux/blogs/blogs.action";
+import { RootReducer } from "../../redux/store";
+import MarkdownToHTMLPreview from "./BlogPreview/MarkdownToHTMLPreview";
 import styles from "./PostBlogForm.module.css";
 import PostBlogSection from "./PostBlogSection";
-import { Remarkable } from "remarkable";
-import PostBlogHTMLPreview from "./BlogPreview/PostBlogHTMLPreview";
 
 type dataType = {
 	title: string;
@@ -29,6 +33,8 @@ const initData = {
 };
 
 const PostBlogForm = () => {
+	const navigate = useNavigate(); // will use this to navigate to the home page after blog is created by the user. Or in future we can use it to navigate to the newly created blog's page.
+	const toast = useToast({ isClosable: true });
 	const [data, setData] = useState<dataType>(initData);
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,22 +46,43 @@ const PostBlogForm = () => {
 		}));
 	};
 
-	const md = new Remarkable();
-	const [htmlPreview, setHtmlPreview] = useState<string>(
-		md.render("## Dummy Blog Content")
-	);
+	const { _post } = useSelector((state: RootReducer) => state.blogs);
+	const dispatch = useDispatch();
+
+	const {
+		tokens: { primaryToken },
+	} = useSelector((state: RootReducer) => state.user);
+
+	const submitBlog = () => {
+		if (primaryToken) {
+			if (!data.title || !data.body) {
+				// alert("Title or body is empty.");
+				toast({
+					title: "Error!",
+					status: "error",
+					description: "Title or body is empty.",
+				});
+			} else {
+				dispatch(postBlog({ data, token: primaryToken }));
+			}
+		} else {
+			toast({
+				title: "Session Expired",
+				description: "Kindly login again :)",
+			});
+			navigate("/");
+		}
+	};
 
 	useEffect(() => {
-		if (data.body !== "") {
-			setHtmlPreview(md.render(data.body));
-		} else {
-			setHtmlPreview(
-				md.render(
-					"## Dummy Blog Content\n\n- task1\n- task 2\n#### Fake Image\n![fakeImage](https://fakeimage.herokuapp.com/120x108)"
-				)
-			);
+		if (_post.success) {
+			toast({
+				title: "Yayy! Blog posted!",
+				status: "success",
+			});
+			navigate("/");
 		}
-	}, [data.body]);
+	}, [_post.success]);
 
 	return (
 		<Flex my="20" justifyContent="center">
@@ -86,6 +113,8 @@ Example:
 					</FormControl>
 					<FormControl my="4">
 						<Button
+							isLoading={_post.loading}
+							onClick={submitBlog}
 							px="10"
 							py="5"
 							variant="solid"
@@ -106,7 +135,7 @@ Example:
 			<PostBlogSection
 				sectionTitle="Blog Preview"
 				title={data.title || "Dummy Title"}>
-				<PostBlogHTMLPreview content={htmlPreview} />
+				<MarkdownToHTMLPreview content={data.body} />
 			</PostBlogSection>
 		</Flex>
 	);
