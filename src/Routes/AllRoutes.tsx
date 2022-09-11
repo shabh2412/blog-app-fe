@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import BlogList from "../Components/Blogs/BlogList";
 import PostBlog from "../Pages/Blogs/PostBlog";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -8,7 +9,7 @@ type Props = {};
 const AllRoutes = (props: Props) => {
 	return (
 		<Routes>
-			<Route path="/" element={<h1>Home XD</h1>} />
+			<Route path="/" element={<BlogList />} />
 			<Route
 				path="/profile"
 				element={
@@ -26,7 +27,14 @@ const AllRoutes = (props: Props) => {
 					</PrivateRoutes>
 				}
 			/>
-			<Route path="new-blog" element={<PostBlog />} />
+			<Route
+				path="new-blog"
+				element={
+					<PrivateRoutes>
+						<PostBlog />
+					</PrivateRoutes>
+				}
+			/>
 		</Routes>
 	);
 };
