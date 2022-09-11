@@ -142,12 +142,13 @@ export const userReducer = (
 			};
 		}
 		case USER_LOADED: {
-			const newState = {
+			const newState: UserDataStore = {
 				...state,
 				isAuth: true,
 				data: {
-					...payload,
+					...payload.user,
 				},
+				tokens: payload.tokens,
 			};
 			return newState;
 		}

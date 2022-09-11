@@ -92,7 +92,10 @@ export const login =
 		// return tokens;
 	};
 
-const userLoadedAction = (data: UserType): UserLoadedData => {
+const userLoadedAction = (data: {
+	user: UserType;
+	tokens: verificationTokens;
+}): UserLoadedData => {
 	return { type: USER_LOADED, payload: data };
 };
 
@@ -104,11 +107,14 @@ export const initializeUser =
 		);
 		// console.log(initTokens);
 		if (initTokens.refreshToken) {
-			let res = await axios.get<UserType>(`${baseUrl}`, {
-				headers: {
-					Authorization: `Bearer ${initTokens.refreshToken}`,
-				},
-			});
+			let res = await axios.get<{ user: UserType; tokens: verificationTokens }>(
+				`${baseUrl}`,
+				{
+					headers: {
+						Authorization: `Bearer ${initTokens.refreshToken}`,
+					},
+				}
+			);
 			// console.log(res.data);
 			dispatch(userLoadedAction(res.data));
 		}
