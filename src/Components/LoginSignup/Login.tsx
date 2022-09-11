@@ -57,7 +57,7 @@ const Login = (props: Props) => {
 			<Button colorScheme="blue" variant="solid" onClick={onOpen}>
 				Login
 			</Button>
-			<Modal isOpen={isOpen} onClose={onClose}>
+			<Modal isOpen={isOpen} onClose={onClose} isCentered>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>Login</ModalHeader>
