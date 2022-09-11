@@ -1,6 +1,8 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import BlogList from "../Components/Blogs/BlogList";
+import BlogPage from "../Components/Blogs/BlogPage/BlogPage";
 import PostBlog from "../Pages/Blogs/PostBlog";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -35,6 +37,7 @@ const AllRoutes = (props: Props) => {
 					</PrivateRoutes>
 				}
 			/>
+			<Route path="read-blog" element={<BlogPage />} />
 		</Routes>
 	);
 };
