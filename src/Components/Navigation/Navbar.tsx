@@ -1,8 +1,9 @@
+import appLogo from "../../assets/blogAppLogo.png";
 import {
 	Box,
 	Button,
 	Flex,
-	FormControl,
+	IconButton,
 	Image,
 	Input,
 	Menu,
@@ -10,9 +11,12 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
+	useColorMode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { HiChevronDown } from "react-icons/hi";
+import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 import { useEffect } from "react";
 import { RootReducer } from "../../redux/store";
 import { initializeUser, logoutUser } from "../../redux/user/user.actions";
@@ -22,6 +26,9 @@ import { useNavigate } from "react-router-dom";
 import NewBlogButton from "../Buttons/NewBlogButton";
 
 const Navbar = () => {
+	const bg = useColorModeValue("white", "#11151C");
+	const invertFilter = useColorModeValue("", "invert(100%)");
+	const { toggleColorMode, colorMode } = useColorMode();
 	const {
 		data: userData,
 		isAuth,
@@ -42,12 +49,13 @@ const Navbar = () => {
 	return (
 		<Flex
 			position="sticky"
-			bg="white"
+			bg={bg}
 			top="0"
 			alignItems="center"
-			p="3"
+			p="5"
 			justifyContent="space-between"
 			wrap={"wrap"}
+			boxShadow="xl"
 			className={styles.navbar}>
 			<Flex
 				alignItems="center"
@@ -58,7 +66,7 @@ const Navbar = () => {
 					cursor: "pointer",
 				}}>
 				<Box>
-					<Image src="./blogAppLogo.png" maxH="30" />
+					<Image filter={invertFilter} src={appLogo} maxH="30" />
 				</Box>
 				<Text
 					fontSize="24"
@@ -69,11 +77,16 @@ const Navbar = () => {
 					BlogItUp!
 				</Text>
 			</Flex>
-			<Box w={["100%", "50%"]}>
+			<Flex w={["100%", "50%"]} justifyContent="space-between">
 				<Input type="text" placeholder="Search for any topic" />
 				{/* Todo: Implement search functionality */}
-			</Box>
+			</Flex>
 			<Flex gap="1em">
+				<IconButton
+					onClick={toggleColorMode}
+					aria-label="toggle theme button"
+					icon={colorMode === "dark" ? <RiSunFill /> : <RiMoonClearFill />}
+				/>
 				{isAuth ? (
 					<>
 						<NewBlogButton />
