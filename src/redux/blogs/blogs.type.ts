@@ -4,9 +4,13 @@ export type blogFormData = {
 	body: string;
 };
 export type blogType = {
+	_id: string;
 	title: string;
 	body: string;
-	author: string;
+	author: {
+		_id: string;
+		name: string;
+	};
 	date: Date;
 	hidden: boolean;
 };
