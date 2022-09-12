@@ -18,6 +18,7 @@ export type loadingSuccessOrError = {
 };
 
 const initData: UserType = {
+	_id: "",
 	name: "",
 	email: "",
 	phone: "",
