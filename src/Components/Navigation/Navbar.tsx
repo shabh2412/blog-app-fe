@@ -17,13 +17,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { HiChevronDown } from "react-icons/hi";
 import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RootReducer } from "../../redux/store";
 import { initializeUser, logoutUser } from "../../redux/user/user.actions";
 import Login from "../LoginSignup/Login";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import NewBlogButton from "../Buttons/NewBlogButton";
+import { pathType } from "../../utils/pathType";
 
 const Navbar = () => {
 	const bg = useColorModeValue("white", "#11151C");
@@ -37,11 +38,19 @@ const Navbar = () => {
 	} = useSelector((state: RootReducer) => state.user);
 	const dispatch = useDispatch();
 
+	const navigate = useNavigate();
+
+	const [pathBeforeLogout, setPathBeforeLogout] = useState<pathType>(
+		JSON.parse(localStorage.getItem("pathBeforeLogout") || '{ "path": "/" }')
+	);
 	const handleLogout = () => {
 		dispatch(logoutUser());
+		navigate(pathBeforeLogout.path);
 	};
 
-	const navigate = useNavigate();
+	useEffect(() => {
+		localStorage.setItem("pathBeforeLogout", JSON.stringify(pathBeforeLogout));
+	}, [pathBeforeLogout]);
 
 	useEffect(() => {
 		dispatch(initializeUser());
@@ -91,7 +100,10 @@ const Navbar = () => {
 					<>
 						<NewBlogButton />
 						<Menu>
-							<MenuButton>
+							<MenuButton
+								onClick={() => {
+									setPathBeforeLogout({ path: location.pathname });
+								}}>
 								<Flex justifyContent="center" alignItems="center">
 									<Text>{userData.name.split(" ")[0]}</Text>
 									<HiChevronDown />
