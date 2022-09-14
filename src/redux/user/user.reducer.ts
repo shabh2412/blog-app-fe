@@ -136,7 +136,9 @@ export const userReducer = (
 			};
 		}
 		case USER_LOGOUT_SUCCESS: {
-			localStorage.clear();
+			localStorage.removeItem("primaryToken");
+			localStorage.removeItem("refreshToken");
+			localStorage.removeItem("tokens");
 			return {
 				...initState,
 				isAuth: false,
