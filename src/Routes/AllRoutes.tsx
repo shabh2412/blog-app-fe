@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import BlogList from "../Components/Blogs/BlogList";
 import BlogPage from "../Components/Blogs/BlogPage/BlogPage";
 import PostBlog from "../Pages/Blogs/PostBlog";
+import Home from "../Pages/Home";
 import PrivateRoutes from "./PrivateRoutes";
 
 type Props = {};
@@ -11,7 +12,7 @@ type Props = {};
 const AllRoutes = (props: Props) => {
 	return (
 		<Routes>
-			<Route path="/" element={<BlogList />} />
+			<Route path="/" element={<Home />} />
 			<Route
 				path="/profile"
 				element={
