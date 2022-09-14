@@ -21,6 +21,10 @@ const BlogList = (props: Props) => {
 		_get: { loading: gl, error: ge },
 	} = useSelector((state: RootReducer) => state.blogs);
 
+	const {
+		data: { _id: userId, name },
+	} = useSelector((state: RootReducer) => state.user);
+
 	const titleColor = useColorModeValue(
 		"black",
 		"var(--chakra-colors-telegram-300)"
@@ -54,7 +58,7 @@ const BlogList = (props: Props) => {
 				w="85%"
 				maxW="100%">
 				<Heading textAlign="center" my="10">
-					Welcome to Blog It Up!
+					{`Hi ${name || "Guest"}! Welcome to Blog It Up!`}
 				</Heading>
 				{gl && <Text>Loading data...</Text>}
 				{ge && <Text>Some error occured...</Text>}
@@ -62,10 +66,12 @@ const BlogList = (props: Props) => {
 				<SimpleGrid columns={[1, 2, 3]} gap="5" p="3">
 					{selectedBlogs?.map((blog) => (
 						<BlogCard
+							id={blog._id}
 							key={blog._id}
 							blog={blog}
 							titleColor={titleColor}
 							authorColor={authorColor}
+							userIsAuthor={userId === blog.author._id}
 						/>
 					))}
 				</SimpleGrid>
