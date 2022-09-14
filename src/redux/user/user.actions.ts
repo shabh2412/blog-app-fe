@@ -64,7 +64,9 @@ const loginLoadingAction = (): UserLoginLoading => {
 const loginErrorAction = (): UserLoginError => {
 	return { type: USER_LOGIN_ERROR, payload: true };
 };
-const loginSuccessAction = (data: loginDataPayloadType): UserLoginSuccess => {
+export const loginSuccessAction = (
+	data: loginDataPayloadType
+): UserLoginSuccess => {
 	return { type: USER_LOGIN_SUCCESS, payload: data };
 };
 
