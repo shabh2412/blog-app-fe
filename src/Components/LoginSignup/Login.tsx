@@ -120,6 +120,9 @@ const Login = (props: Props) => {
 	};
 	const toast = useToast({ isClosable: true });
 	useEffect(() => {
+		navigate(pathBeforeLogin);
+	}, [success]);
+	useEffect(() => {
 		if (code !== null) {
 			onOpen();
 			console.log(code);
