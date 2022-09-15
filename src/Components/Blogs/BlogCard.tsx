@@ -23,6 +23,7 @@ type Props = {
 	titleColor: string;
 	authorColor: string;
 	userIsAuthor?: boolean;
+	userIsAdmin?: boolean;
 };
 
 const checkIfNew = (creationDate: string): boolean => {
@@ -40,6 +41,7 @@ const BlogCard = ({
 	titleColor,
 	authorColor,
 	userIsAuthor = false,
+	userIsAdmin = false,
 }: Props) => {
 	const navigate = useNavigate();
 	const navigateToBlogPage = () => {
@@ -80,7 +82,7 @@ const BlogCard = ({
 					by {blog.author.name}
 				</Text>
 			</Box>
-			{userIsAuthor && (
+			{(userIsAuthor || userIsAdmin) && (
 				<Box position="absolute" right="1" bottom="1">
 					<Menu colorScheme="twitter">
 						<MenuButton
@@ -94,7 +96,8 @@ const BlogCard = ({
 							<Icon as={BsThreeDotsVertical} />
 						</MenuButton>
 						<MenuList>
-							<MenuItem>Delete</MenuItem>
+							{(userIsAuthor || userIsAdmin) && <MenuItem>Delete</MenuItem>}
+							{userIsAuthor && <MenuItem>Edit</MenuItem>}
 						</MenuList>
 					</Menu>
 				</Box>
