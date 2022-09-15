@@ -22,7 +22,7 @@ const BlogList = (props: Props) => {
 	} = useSelector((state: RootReducer) => state.blogs);
 
 	const {
-		data: { _id: userId, name },
+		data: { _id: userId, name, role },
 	} = useSelector((state: RootReducer) => state.user);
 
 	const titleColor = useColorModeValue(
@@ -71,6 +71,7 @@ const BlogList = (props: Props) => {
 							blog={blog}
 							titleColor={titleColor}
 							authorColor={authorColor}
+							userIsAdmin={role === "admin"}
 							userIsAuthor={userId === blog.author._id}
 						/>
 					))}
