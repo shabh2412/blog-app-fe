@@ -76,7 +76,7 @@ export interface UserLogOutError {
 export const USER_LOADED = "USER_LOADED";
 export interface UserLoadedData {
 	type: typeof USER_LOADED;
-	payload: { user: UserType; tokens: verificationTokens };
+	payload: { data: UserType; tokens: verificationTokens };
 }
 
 export type UserHandler =

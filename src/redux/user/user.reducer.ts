@@ -149,7 +149,7 @@ export const userReducer = (
 				...state,
 				isAuth: true,
 				data: {
-					...payload.user,
+					...payload.data,
 				},
 				tokens: payload.tokens,
 			};

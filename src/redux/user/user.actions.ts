@@ -61,8 +61,8 @@ const loginLoadingAction = (): UserLoginLoading => {
 	return { type: USER_LOGIN_LOADING, payload: true };
 };
 
-const loginErrorAction = (): UserLoginError => {
-	return { type: USER_LOGIN_ERROR, payload: true };
+const loginErrorAction = (errorStatus: boolean): UserLoginError => {
+	return { type: USER_LOGIN_ERROR, payload: errorStatus };
 };
 export const loginSuccessAction = (
 	data: loginDataPayloadType
@@ -88,17 +88,37 @@ export const login =
 				})
 			);
 		} catch (err) {
-			console.log(err);
-			dispatch(loginErrorAction());
+			// console.log(err);
+			dispatch(loginErrorAction(true));
+			setTimeout(() => {
+				dispatch(loginErrorAction(false));
+			}, 10);
 		}
 		// return tokens;
 	};
 
 const userLoadedAction = (data: {
-	user: UserType;
+	data: UserType;
 	tokens: verificationTokens;
 }): UserLoadedData => {
 	return { type: USER_LOADED, payload: data };
+};
+
+const generatePrimaryToken = async (refreshToken: string) => {
+	const res = await axios.post<any>(`${baseUrl}/refresh`, {
+		refreshToken,
+	});
+	console.log(res.data);
+	if (!res.data.primaryToken) {
+		return { status: "FAILURE" };
+	} else {
+		let tokens = {
+			refreshToken,
+			primaryToken: res.data.primaryToken,
+		};
+		localStorage.setItem("tokens", JSON.stringify(res.data));
+		return { status: "SUCCESS", tokens };
+	}
 };
 
 export const initializeUser =
@@ -107,18 +127,38 @@ export const initializeUser =
 		const initTokens: verificationTokens = JSON.parse(
 			localStorage.getItem("tokens") || "{}"
 		);
+		interface userTypeNTokens {
+			data: UserType;
+			tokens: verificationTokens;
+		}
+		interface errorType {
+			message: string;
+		}
+		// let responseType =
 		// console.log(initTokens);
-		if (initTokens.refreshToken) {
-			let res = await axios.get<{ user: UserType; tokens: verificationTokens }>(
-				`${baseUrl}`,
-				{
-					headers: {
-						Authorization: `Bearer ${initTokens.refreshToken}`,
-					},
+		if (initTokens.primaryToken) {
+			let res = await axios.get<any>(`${baseUrl}`, {
+				headers: {
+					Authorization: `Bearer ${initTokens.primaryToken}`,
+				},
+			});
+			console.log(res.data);
+			if (!res.data.data) {
+				let message: string = res.data.message.message;
+				console.log(message);
+				if (message == "jwt expired") {
+					console.log(`send a refresh token`);
+					let response = await generatePrimaryToken(initTokens.refreshToken);
+					// console.log(response.status);
+					if (response.status === "SUCCESS") {
+						dispatch(initializeUser());
+					} else {
+						dispatch(logoutUserSuccess());
+					}
 				}
-			);
-			// console.log(res.data);
-			dispatch(userLoadedAction(res.data));
+			} else {
+				dispatch(userLoadedAction(res.data));
+			}
 		}
 	};
 
