@@ -1,19 +1,15 @@
 import {
 	Box,
 	Button,
-	Center,
-	Container,
 	Divider,
 	Flex,
 	FormControl,
 	FormLabel,
-	Heading,
-	HStack,
 	Input,
 	Textarea,
 	useToast,
 } from "@chakra-ui/react";
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postBlog } from "../../redux/blogs/blogs.action";

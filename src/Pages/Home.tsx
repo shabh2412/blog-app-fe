@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
 import BlogList from "../Components/Blogs/BlogList";
 
 type Props = {};

@@ -20,7 +20,7 @@ import {
 	useDisclosure,
 	useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	loginDataPayloadType,
 	UserLoginFormDataType,
@@ -30,7 +30,6 @@ import { RootReducer } from "../../redux/store";
 import { login, loginSuccessAction } from "../../redux/user/user.actions";
 import { AiOutlineGithub } from "react-icons/ai";
 import {
-	Navigate,
 	useLocation,
 	useNavigate,
 	useSearchParams,

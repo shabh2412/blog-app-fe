@@ -1,4 +1,3 @@
-import React from "react";
 import PostBlogForm from "../../Components/Blogs/PostBlogForm";
 
 type Props = {};

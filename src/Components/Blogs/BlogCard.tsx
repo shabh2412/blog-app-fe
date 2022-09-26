@@ -1,7 +1,6 @@
 import {
 	Badge,
 	Box,
-	Button,
 	Icon,
 	IconButton,
 	Menu,
@@ -9,13 +8,11 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
-	useColorModeValue,
 } from "@chakra-ui/react";
-import React, { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { blogType } from "../../redux/blogs/blogs.type";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { deleteBlog } from "../../redux/blogs/blogs.action";
 

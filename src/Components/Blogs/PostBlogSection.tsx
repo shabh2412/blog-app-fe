@@ -1,5 +1,5 @@
 import { Box, Container, Divider, Heading, Text } from "@chakra-ui/react";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 type Props = {
 	sectionTitle: string;
