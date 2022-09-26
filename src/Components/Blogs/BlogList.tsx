@@ -5,6 +5,7 @@ import {
 	SimpleGrid,
 	Text,
 	useColorModeValue,
+	useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,8 @@ type Props = {};
 const BlogList = (props: Props) => {
 	const {
 		blogs,
-		_get: { loading: gl, error: ge },
+		_get: { loading: getLoading, error: getError },
+		_delete: { success: delSuccess },
 	} = useSelector((state: RootReducer) => state.blogs);
 
 	const {
@@ -37,6 +39,8 @@ const BlogList = (props: Props) => {
 
 	const [selectedBlogs, setSelectedBlogs] = useState<blogType[]>(blogs);
 
+	const toast = useToast({ isClosable: true, status: "success" });
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -46,6 +50,17 @@ const BlogList = (props: Props) => {
 	useEffect(() => {
 		setSelectedBlogs(blogs);
 	}, [blogs]);
+
+	useEffect(() => {
+		console.log(delSuccess);
+		if (delSuccess) {
+			toast({
+				title: "Operation Successfull!",
+				description: "Blog deleted successfully!",
+				duration: 1500,
+			});
+		}
+	}, [delSuccess]);
 
 	return (
 		<Box
@@ -60,8 +75,8 @@ const BlogList = (props: Props) => {
 				<Heading textAlign="center" my="10">
 					{`Hi ${name || "Guest"}! Welcome to Blog It Up!`}
 				</Heading>
-				{gl && <Text>Loading data...</Text>}
-				{ge && <Text>Some error occured...</Text>}
+				{getLoading && <Text>Loading data...</Text>}
+				{getError && <Text>Some error occured...</Text>}
 				{/* {console.log(blogs)} */}
 				<SimpleGrid columns={[1, 2, 3]} gap="5" p="3">
 					{selectedBlogs?.map((blog) => (

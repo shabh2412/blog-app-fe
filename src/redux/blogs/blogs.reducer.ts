@@ -10,6 +10,9 @@
 import {
 	BlogDataStore,
 	BlogsHandler,
+	BLOGS_DELETE_ERROR,
+	BLOGS_DELETE_LOADING,
+	BLOGS_DELETE_SUCCESS,
 	BLOGS_GET_ERROR,
 	BLOGS_GET_LOADING,
 	BLOGS_GET_SUCCESS,
@@ -57,6 +60,18 @@ export const blogsReducer = (
 				},
 				_post: {
 					...state._post,
+					error: false,
+					loading: false,
+					success: false,
+				},
+				_delete: {
+					...state._delete,
+					error: false,
+					loading: false,
+					success: false,
+				},
+				_update: {
+					...state._update,
 					error: false,
 					loading: false,
 					success: false,
@@ -114,6 +129,39 @@ export const blogsReducer = (
 					error: false,
 					loading: false,
 					success: payload,
+				},
+			};
+		}
+		case BLOGS_DELETE_LOADING: {
+			return {
+				...state,
+				_delete: {
+					...state._delete,
+					error: false,
+					loading: payload,
+					success: false,
+				},
+			};
+		}
+		case BLOGS_DELETE_SUCCESS: {
+			return {
+				...state,
+				_delete: {
+					...state._delete,
+					error: false,
+					loading: false,
+					success: payload,
+				},
+			};
+		}
+		case BLOGS_DELETE_ERROR: {
+			return {
+				...state,
+				_delete: {
+					...state._delete,
+					error: payload,
+					loading: false,
+					success: false,
 				},
 			};
 		}

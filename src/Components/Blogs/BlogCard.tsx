@@ -11,11 +11,13 @@ import {
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { blogType } from "../../redux/blogs/blogs.type";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { useDispatch } from "react-redux";
+import { deleteBlog } from "../../redux/blogs/blogs.action";
 
 type Props = {
 	id: string;
@@ -43,6 +45,7 @@ const BlogCard = ({
 	userIsAuthor = false,
 	userIsAdmin = false,
 }: Props) => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const navigateToBlogPage = () => {
 		localStorage.setItem("selectedBlog", JSON.stringify(blog));
@@ -52,6 +55,7 @@ const BlogCard = ({
 		<Box position="relative">
 			<Box
 				id={id}
+				h="100%"
 				onClick={() => {
 					navigateToBlogPage();
 				}}
@@ -96,7 +100,15 @@ const BlogCard = ({
 							<Icon as={BsThreeDotsVertical} />
 						</MenuButton>
 						<MenuList>
-							{(userIsAuthor || userIsAdmin) && <MenuItem>Delete</MenuItem>}
+							{(userIsAuthor || userIsAdmin) && (
+								<MenuItem
+									onClick={(e: BaseSyntheticEvent) => {
+										console.log(id);
+										dispatch(deleteBlog(id));
+									}}>
+									Delete
+								</MenuItem>
+							)}
 							{userIsAuthor && <MenuItem>Edit</MenuItem>}
 						</MenuList>
 					</Menu>
