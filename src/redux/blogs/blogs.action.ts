@@ -31,7 +31,9 @@ import {
 	BLOG_COMMENT_SUCCESS,
 } from "./blogs.type";
 
-const baseUrl = `http://localhost:8080/blogs/`;
+// const baseUrl = `http://localhost:8080/blogs`;
+const serverUrl = "http://192.168.0.105:8080";
+const baseUrl = `${serverUrl}/blogs`;
 
 const getBlogsLoadingAction = (): BlogsGetLoading => ({
 	type: BLOGS_GET_LOADING,

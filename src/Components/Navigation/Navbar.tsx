@@ -62,11 +62,14 @@ const Navbar = () => {
 			top="0"
 			alignItems="center"
 			p="5"
+			rowGap="4"
 			justifyContent="space-between"
 			wrap={"wrap"}
 			boxShadow="xl"
 			className={styles.navbar}>
 			<Flex
+				w={["100%", "100%", "100%", "max-content"]}
+				justifyContent="center"
 				alignItems="center"
 				onClick={() => {
 					navigate("/");
@@ -86,11 +89,15 @@ const Navbar = () => {
 					BlogItUp!
 				</Text>
 			</Flex>
-			<Flex w={["100%", "50%"]} justifyContent="space-between">
+			<Flex w={["100%", "100%", "100%","50%"]} justifyContent="center">
 				<Input type="text" placeholder="Search for any topic" />
 				{/* Todo: Implement search functionality */}
 			</Flex>
-			<Flex gap="1em">
+			<Flex
+				gap="1em"
+				// border="1px solid red"
+				w={["100%", "100%", "100%", "fit-content"]}
+				justifyContent="space-between">
 				<IconButton
 					onClick={toggleColorMode}
 					aria-label="toggle theme button"

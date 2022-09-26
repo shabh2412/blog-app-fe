@@ -29,11 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducer } from "../../redux/store";
 import { login, loginSuccessAction } from "../../redux/user/user.actions";
 import { AiOutlineGithub } from "react-icons/ai";
-import {
-	useLocation,
-	useNavigate,
-	useSearchParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { pathType } from "../../utils/pathType";
 
@@ -43,6 +39,9 @@ const initData: UserLoginFormDataType = {
 	email: "",
 	password: "",
 };
+
+const serverUrl = "http://192.168.0.105:8080";
+const baseUrl = `${serverUrl}/users`;
 
 const Login = (props: Props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,15 +107,11 @@ const Login = (props: Props) => {
 	const fetchUserData = async () => {
 		console.log("fetching data");
 		try {
-			let res = await axios.post(
-				"http://localhost:8080/users/login/github",
-				null,
-				{
-					params: {
-						code,
-					},
-				}
-			);
+			let res = await axios.post(`${baseUrl}/login/github`, null, {
+				params: {
+					code,
+				},
+			});
 			return res.data;
 		} catch (err) {
 			console.log(err);

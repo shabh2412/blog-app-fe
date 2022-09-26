@@ -28,7 +28,9 @@ import {
 } from "./user.types";
 import axios from "axios";
 
-const baseUrl = `http://localhost:8080/users`;
+// const baseUrl = `http://localhost:8080/users`;
+const serverUrl = "http://192.168.0.105:8080";
+const baseUrl = `${serverUrl}/users`;
 
 const signUpLoadingAction = (): UserSignupLoading => {
 	return { type: USER_SIGN_UP_LOADING, payload: true };
