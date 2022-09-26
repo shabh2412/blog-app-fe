@@ -63,6 +63,7 @@ const Login = (props: Props) => {
 	);
 
 	const location = useLocation();
+	const toast = useToast({ isClosable: true });
 
 	const handleChange = (name: string, value: string) => {
 		setData((prev) => ({
@@ -75,10 +76,14 @@ const Login = (props: Props) => {
 		if (data.email && data.password) {
 			// console.log("loggedin :)");
 			dispatch(login(data));
+			next();
 		} else {
-			console.log("oops");
+			toast({
+				title: "Sorry buddy",
+				description: "Please type your email and password to login...",
+				status: "error",
+			});
 		}
-		next();
 	};
 	const handleCloseModal = () => {
 		if (code !== null) {
@@ -118,10 +123,19 @@ const Login = (props: Props) => {
 			console.log(err);
 		}
 	};
-	const toast = useToast({ isClosable: true });
 	useEffect(() => {
 		if (success) navigate(pathBeforeLogin.path);
 	}, [success]);
+	useEffect(() => {
+		if (_err) {
+			toast({
+				title: "Error occurred while logging in...",
+				description: "Please check the email & password you've entered.",
+				status: "error",
+			});
+			handleOpen();
+		}
+	}, [_err]);
 	useEffect(() => {
 		if (code !== null) {
 			onOpen();
@@ -199,6 +213,7 @@ const Login = (props: Props) => {
 									<Button
 										variant="solid"
 										colorScheme="green"
+										isLoading={loading}
 										onClick={() => {
 											handleLogin(onClose);
 										}}>
