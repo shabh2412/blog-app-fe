@@ -3,6 +3,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import BlogList from "../Components/Blogs/BlogList";
 import BlogPage from "../Components/Blogs/BlogPage/BlogPage";
+import EditBlog from "../Components/Blogs/EditBlog";
 import PostBlog from "../Pages/Blogs/PostBlog";
 import Home from "../Pages/Home";
 import PrivateRoutes from "./PrivateRoutes";
@@ -39,6 +40,7 @@ const AllRoutes = (props: Props) => {
 				}
 			/>
 			<Route path="read-blog" element={<BlogPage />} />
+			<Route path="edit" element={<EditBlog />} />
 		</Routes>
 	);
 };
