@@ -2,6 +2,11 @@
 
 ---
 
+Check out live site: https://blog-it-up.vercel.app/
+Backend: https://blogitup-be-ts.herokuapp.com/
+
+# Tech Stack: TypeScript, ReactJS, ExpressJS, MongoDB, NodeJS, Chakra-UI
+
 ## Features:
 
 - Guest user can view all the blogs.
@@ -11,6 +16,7 @@
 - Dark / Light Mode
 - Password is hashed using argon2.
 - Implements OAuth, i.e. users can login via their github account as well.
+- and much more...
 
 ## Test User Accounts:
 
@@ -18,5 +24,3 @@
 | ------------------- | -------------- |
 | hinata@karasuno.com | karasunoHinata |
 | admin@example.com   | admin1234      |
-
-- Email: `hinata@karasuno.com ` | Password `karasunoHinata`
