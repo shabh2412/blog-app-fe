@@ -31,4 +31,4 @@
 | Email               | Password       |
 | ------------------- | -------------- |
 | hinata@karasuno.com | karasunoHinata |
-| admin@example.com   | admin1234      |
+| user@tsdemo1.com    | usertest1      |
