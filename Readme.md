@@ -2,9 +2,9 @@
 
 ---
 
-Check out live site: https://blog-it-up.vercel.app/
-Backend: https://blogitup-be-ts.herokuapp.com/
-Backend Repo: https://github.com/shabh2412/blogitup-express-be
+- Check out live site: https://blog-it-up.vercel.app/
+- Backend: https://blogitup-be-ts.herokuapp.com/
+- Backend Repo: https://github.com/shabh2412/blogitup-express-be
 
 ## Tech Stack:
 
