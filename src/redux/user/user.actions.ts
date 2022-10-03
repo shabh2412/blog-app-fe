@@ -27,9 +27,10 @@ import {
 	verificationTokens,
 } from "./user.types";
 import axios from "axios";
+import { config } from "../../config/config";
 
 // const baseUrl = `http://localhost:8080/users`;
-const serverUrl = "http://192.168.0.105:8080";
+const serverUrl = config.prod.BASE_API_URL;
 const baseUrl = `${serverUrl}/users`;
 
 const signUpLoadingAction = (): UserSignupLoading => {

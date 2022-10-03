@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "react";
+import { config } from "../../config/config";
 import { PostCommentPayload } from "../../utils/CommentType";
 import {
 	BlogCommentError,
@@ -32,7 +33,7 @@ import {
 } from "./blogs.type";
 
 // const baseUrl = `http://localhost:8080/blogs`;
-const serverUrl = "http://192.168.0.105:8080";
+const serverUrl = config.prod.BASE_API_URL;
 const baseUrl = `${serverUrl}/blogs`;
 
 const getBlogsLoadingAction = (): BlogsGetLoading => ({
