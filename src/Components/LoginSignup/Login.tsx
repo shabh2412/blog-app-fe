@@ -32,6 +32,7 @@ import { AiOutlineGithub } from "react-icons/ai";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { pathType } from "../../utils/pathType";
+import { config } from "../../config/config";
 
 type Props = {};
 
@@ -40,7 +41,7 @@ const initData: UserLoginFormDataType = {
 	password: "",
 };
 
-const serverUrl = "http://192.168.0.105:8080";
+const serverUrl = config.prod.BASE_API_URL;
 const baseUrl = `${serverUrl}/users`;
 
 const Login = (props: Props) => {
