@@ -16,7 +16,7 @@ const MarkdownToHTMLPreview = ({ content }: Props) => {
 		} else {
 			setHtmlPreview(
 				md.render(
-					"## Dummy Blog Content\n\n- task1\n- task 2\n#### Fake Image\n![fakeImage](https://fakeimage.herokuapp.com/120x108)"
+					"## Dummy Blog Content\n\n- task1\n- task 2\n#### Fake Image\n![fakeImage](https://fakeimg.pl/120x108/282828/eae0d0/?retina=1&text=dummy%20image)"
 				)
 			);
 		}
